@@ -7,7 +7,7 @@ commonLabels:
 
 resources:
 # wave 0
-# - secret-db.yaml
+- secret-db.yaml
 - secret-minio.yaml
 # - pvc-db.yaml
 - sql-script-configmap.yaml

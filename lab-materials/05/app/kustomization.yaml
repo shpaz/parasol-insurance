@@ -7,14 +7,14 @@ commonLabels:
 
 resources:
 # wave 0
-- secret-db.yaml
+# - secret-db.yaml
 - secret-minio.yaml
-- pvc-db.yaml
+# - pvc-db.yaml
 - sql-script-configmap.yaml
 # wave 1
-- deployment-db.yaml
+- claimdb-vm.yaml
 - service-db.yaml
-- db-init-job.yaml
+# - db-init-job.yaml
 - populate-images.yaml
 # wave 2
 - deployment-app.yaml

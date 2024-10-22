@@ -99,6 +99,8 @@ spec:
                 - sudo cp /mnt/scripts/script.sql /tmp/script.sql  # Copy the script to /tmp (writable location)
                 - sudo chmod +x /tmp/script.sql  # Make the copied script executable
                 - sudo -i -u postgres psql -U postgres -w -d claimdb -f /tmp/script.sql  # Run the SQL script from /tmp
+                - echo "host    all             all             10.129.4.168/32          md5" | sudo tee -a /var/lib/pgsql/data/pg_hba.conf
+                - systemctl restart postgresql
           name: 'cloudinitdisk'
         - configMap:
             name: sql-script-configmap

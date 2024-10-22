@@ -1,0 +1,115 @@
+apiVersion: 'kubevirt.io/v1'
+kind: 'VirtualMachine'
+metadata:
+  annotations:
+    kubemacpool.io/transaction-timestamp: '2024-10-22T09:32:33.125542403Z'
+    vm.kubevirt.io/validations: "[\n  {\n    \"name\": \"minimal-required-memory\",\n    \"path\": \"jsonpath::.spec.domain.resources.requests.memory\",\n    \"rule\": \"integer\",\n    \"message\": \"This VM requires more memory.\",\n    \"min\": 1610612736\n  }\n]\n"
+  creationTimestamp: '2024-10-22T09:32:33Z'
+  labels:
+    app: 'claimdb-vm'
+    type: 'claimdb-vm'
+    vm.kubevirt.io/template: 'fedora-server-small'
+    vm.kubevirt.io/template.namespace: 'openshift'
+    vm.kubevirt.io/template.revision: '1'
+    vm.kubevirt.io/template.version: 'v0.25.0'
+  name: 'claimdb-vm'
+  namespace: 'default'
+spec:
+  dataVolumeTemplates:
+    - apiVersion: 'cdi.kubevirt.io/v1beta1'
+      kind: 'DataVolume'
+      metadata:
+        name: 'claimdb-vm'
+      spec:
+        sourceRef:
+          kind: 'DataSource'
+          name: 'fedora'
+          namespace: 'openshift-virtualization-os-images'
+        storage:
+          resources:
+            requests:
+              storage: '30Gi'
+  running: false
+  template:
+    metadata:
+      annotations:
+        vm.kubevirt.io/flavor: 'small'
+        vm.kubevirt.io/os: 'fedora'
+        vm.kubevirt.io/workload: 'server'
+      labels:
+        kubevirt.io/domain: 'claimdb-vm'
+        kubevirt.io/size: 'small'
+    spec:
+      domain:
+        cpu:
+          cores: 2
+          sockets: 1
+          threads: 1
+        devices:
+          disks:
+            - disk:
+                bus: 'virtio'
+              name: 'rootdisk'
+            - disk:
+                bus: 'virtio'
+              name: 'cloudinitdisk'
+            - disk:
+                bus: 'virtio'
+              name: 'sqlscriptdisk' # New disk for ConfigMap
+          interfaces:
+            - macAddress: '02:7f:f0:00:00:02'
+              masquerade: {}
+              model: 'virtio'
+              name: 'default'
+          networkInterfaceMultiqueue: true
+          rng: {}
+        features:
+          acpi: {}
+          smm:
+            enabled: true
+        firmware:
+          bootloader:
+            efi: {}
+        machine:
+          type: 'pc-q35-rhel9.2.0'
+        resources:
+          requests:
+            memory: '4Gi'
+      evictionStrategy: 'LiveMigrate'
+      networks:
+        - name: 'default'
+          pod: {}
+      terminationGracePeriodSeconds: 180
+      volumes:
+        - dataVolume:
+            name: 'claimdb-vm'
+          name: 'rootdisk'
+        - cloudInitNoCloud:
+            userData: |
+              #cloud-config
+              user: cloud-user
+              password: n16v-6nyn-b3l4
+              chpasswd: { expire: False }
+              runcmd:
+                - sudo mkdir /mnt/scripts 
+                - sudo mount /dev/vdc /mnt/scripts
+                - dnf install -y postgresql-server postgresql-contrib  # Install PostgreSQL
+                - postgresql-setup --initdb                           # Initialize PostgreSQL database
+                - systemctl enable --now postgresql                   # Enable and start PostgreSQL service
+                - sudo -i -u postgres psql -c "CREATE DATABASE claimdb;"  # Create database 'claimdb'
+                - sudo -i -u postgres psql -c "CREATE USER claimdb WITH PASSWORD 'claimdb';"  # Create DB user
+                - sudo -i -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE claimdb TO claimdb;"  # Grant privileges
+                - sudo cp /mnt/scripts/script.sql /tmp/script.sql  # Copy the script to /tmp (writable location)
+                - sudo chmod +x /tmp/script.sql  # Make the copied script executable
+                - sudo -i -u postgres psql -U postgres -w -d claimdb -f /tmp/script.sql  # Run the SQL script from /tmp
+          name: 'cloudinitdisk'
+        - configMap:
+            name: sql-script-configmap
+          name: 'sqlscriptdisk'
+      volumeMounts:  # Correctly mounting the ConfigMap volume in the VM
+        - mountPath: "/mnt/scripts"
+          name: "sqlscriptdisk"
+  volumes:
+    - name: 'sqlscriptdisk'
+      configMap:
+        name: sql-script-configmap

@@ -333,5 +333,8 @@ data:
     INSERT INTO claims.processed_images (image_name, image_key, claim_id) VALUES ('car3-processed.jpg', 'processed_images/car3-processed.jpg', 3);
     INSERT INTO claims.processed_images (image_name, image_key, claim_id) VALUES ('car5-processed.jpg', 'processed_images/car5-processed.jpg', 3);
     INSERT INTO claims.processed_images (image_name, image_key, claim_id) VALUES ('car6-processed.jpg', 'processed_images/car6-processed.jpg', 3);
+    ALTER TABLE claims.claims OWNER TO claimdb;
+    ALTER TABLE claims.processed_images OWNER TO claimdb;
+    ALTER TABLE claims.original_images OWNER TO claimdb;
 
 

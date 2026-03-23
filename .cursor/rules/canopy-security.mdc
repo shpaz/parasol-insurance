@@ -1,5 +1,5 @@
 ---
-description: Security constraints from Canopy (Shon Paz, locked)
+description: Security constraints from Canopy (shpaz, locked)
 globs:
 alwaysApply: true
 ---

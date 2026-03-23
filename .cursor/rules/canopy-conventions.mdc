@@ -1,5 +1,5 @@
 ---
-description: Coding conventions from Canopy (Shon Paz)
+description: Coding conventions from Canopy (shpaz)
 globs:
 alwaysApply: true
 ---
@@ -12,11 +12,11 @@ Use UTC timestamps everywhere
 ## Input validation required
 Input validation required
 
+## No direct commits to main
+No direct commits to main
+
 ## Write unit tests for new code
 Write unit tests for new code
 
 ## Use conventional commits
 Use conventional commits
-
-## No direct commits to main
-No direct commits to main

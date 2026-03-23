@@ -1,5 +1,5 @@
 ---
-description: Architecture standards from Canopy (Shon Paz)
+description: Architecture standards from Canopy (shpaz)
 globs:
 alwaysApply: true
 ---
@@ -9,17 +9,17 @@ alwaysApply: true
 ## Structured error responses
 All API errors must return { error: { code, message } } format.
 
-## Use Python
-Use Python as part of the standard tech stack.
+## Use TypeScript
+Use TypeScript as part of the standard tech stack.
 
-## Use FastAPI
-Use FastAPI as part of the standard tech stack.
+## Use React
+Use React as part of the standard tech stack.
 
-## Use PostgreSQL
-Use PostgreSQL as part of the standard tech stack.
+## Use MongoDB
+Use MongoDB as part of the standard tech stack.
 
-## Use Pytest
-Use Pytest as part of the standard tech stack.
+## Use Vitest
+Use Vitest as part of the standard tech stack.
 
 ## Use Kubernetes
 Use Kubernetes as part of the standard tech stack.

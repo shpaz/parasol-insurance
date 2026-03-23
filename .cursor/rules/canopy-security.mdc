@@ -1,0 +1,16 @@
+---
+description: Security constraints from Canopy (Shon Paz, locked)
+globs:
+alwaysApply: true
+---
+
+# Security constraints
+
+## No hardcoded secrets
+Never hardcode API keys, tokens, or passwords. Use environment variables or a secrets manager.
+
+## Input validation required
+All external input must be validated with a schema (Zod, Joi, etc.).
+
+## No PII in logs
+Never log emails, phone numbers, SSN, or other personal data.

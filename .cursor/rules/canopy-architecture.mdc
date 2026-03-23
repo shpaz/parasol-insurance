@@ -1,0 +1,25 @@
+---
+description: Architecture standards from Canopy (Shon Paz)
+globs:
+alwaysApply: true
+---
+
+# Architecture standards
+
+## Structured error responses
+All API errors must return { error: { code, message } } format.
+
+## Use Python
+Use Python as part of the standard tech stack.
+
+## Use FastAPI
+Use FastAPI as part of the standard tech stack.
+
+## Use PostgreSQL
+Use PostgreSQL as part of the standard tech stack.
+
+## Use Pytest
+Use Pytest as part of the standard tech stack.
+
+## Use Kubernetes
+Use Kubernetes as part of the standard tech stack.

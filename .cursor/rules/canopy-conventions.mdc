@@ -1,0 +1,22 @@
+---
+description: Coding conventions from Canopy (Shon Paz)
+globs:
+alwaysApply: true
+---
+
+# Conventions
+
+## Use UTC timestamps everywhere
+Use UTC timestamps everywhere
+
+## Input validation required
+Input validation required
+
+## Write unit tests for new code
+Write unit tests for new code
+
+## Use conventional commits
+Use conventional commits
+
+## No direct commits to main
+No direct commits to main

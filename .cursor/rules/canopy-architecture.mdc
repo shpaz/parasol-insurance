@@ -1,25 +1,47 @@
 ---
-description: Architecture standards from Canopy (Shon Paz)
+description: Architecture standards from Canopy (shpaz, locked)
 globs:
 alwaysApply: true
 ---
 
 # Architecture standards
 
-## Structured error responses
-All API errors must return { error: { code, message } } format.
+## Clinical data integrity — event sourcing
+Never UPDATE or DELETE clinical records (encounters, observations, medications) directly.
+Use event sourcing: append correction events instead of mutating records. The event log is the source of truth.
+Every clinical data change must be traceable to a user, timestamp, and reason.
+Support audit queries: "show me all changes to this patient's medication history."
+This is not just a technical choice — clinical record integrity has legal implications.
 
-## Use Python
-Use Python as part of the standard tech stack.
+## Use Disaster recovery
+Use Disaster recovery as part of the standard tech stack.
 
-## Use FastAPI
-Use FastAPI as part of the standard tech stack.
-
-## Use PostgreSQL
-Use PostgreSQL as part of the standard tech stack.
-
-## Use Pytest
-Use Pytest as part of the standard tech stack.
+## Use HIPAA-compliant hosting
+Use HIPAA-compliant hosting as part of the standard tech stack.
 
 ## Use Kubernetes
 Use Kubernetes as part of the standard tech stack.
+
+## Use ArgoCD
+Use ArgoCD as part of the standard tech stack.
+
+## Use Terraform
+Use Terraform as part of the standard tech stack.
+
+## Use AWS
+Use AWS as part of the standard tech stack.
+
+## Use Prometheus
+Use Prometheus as part of the standard tech stack.
+
+## Use Grafana
+Use Grafana as part of the standard tech stack.
+
+## Use Vault
+Use Vault as part of the standard tech stack.
+
+## Use Snyk
+Use Snyk as part of the standard tech stack.
+
+## Use SonarQube
+Use SonarQube as part of the standard tech stack.

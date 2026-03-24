@@ -1,22 +1,14 @@
 ---
-description: Coding conventions from Canopy (Shon Paz)
+description: Coding conventions from Canopy (shpaz)
 globs:
 alwaysApply: true
 ---
 
 # Conventions
 
-## Use UTC timestamps everywhere
-Use UTC timestamps everywhere
-
-## Input validation required
-Input validation required
-
-## Write unit tests for new code
-Write unit tests for new code
-
-## Use conventional commits
-Use conventional commits
-
-## No direct commits to main
-No direct commits to main
+## Decimal precision for monetary values
+Never use floating-point types (float, double) for monetary values — they cause rounding errors.
+Use integer cents/minor units (store $10.50 as 1050) or a dedicated decimal library.
+All monetary calculations must use exact arithmetic. Document the precision and rounding rules.
+Currency must always be explicit — never assume USD. Store currency code alongside amount.
+Display formatting is a UI concern — store raw values, format on display.

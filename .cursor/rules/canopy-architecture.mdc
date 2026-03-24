@@ -1,25 +1,35 @@
 ---
-description: Architecture standards from Canopy (Shon Paz)
+description: Architecture standards from Canopy (shpaz, locked)
 globs:
 alwaysApply: true
 ---
 
 # Architecture standards
 
-## Structured error responses
-All API errors must return { error: { code, message } } format.
+## Transaction idempotency
+All financial transaction endpoints must be idempotent — retrying the same request must not create duplicate transactions.
+Use idempotency keys: clients send a unique key with each request, server deduplicates.
+Store idempotency keys with results for at least 24 hours.
+Return the original response for duplicate requests — do not process again.
+This prevents double-charging, double-transfers, and duplicate ledger entries.
 
-## Use Python
-Use Python as part of the standard tech stack.
+## Use Secure form handling
+Use Secure form handling as part of the standard tech stack.
 
-## Use FastAPI
-Use FastAPI as part of the standard tech stack.
+## Use Card number masking
+Use Card number masking as part of the standard tech stack.
 
-## Use PostgreSQL
-Use PostgreSQL as part of the standard tech stack.
+## Use JavaScript
+Use JavaScript as part of the standard tech stack.
 
-## Use Pytest
-Use Pytest as part of the standard tech stack.
+## Use Next.js
+Use Next.js as part of the standard tech stack.
 
-## Use Kubernetes
-Use Kubernetes as part of the standard tech stack.
+## Use CSS Modules
+Use CSS Modules as part of the standard tech stack.
+
+## Use Playwright
+Use Playwright as part of the standard tech stack.
+
+## Use TanStack Query
+Use TanStack Query as part of the standard tech stack.
